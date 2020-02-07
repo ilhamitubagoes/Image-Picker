@@ -10,13 +10,14 @@ import android.widget.ImageView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.bumptech.glide.Glide;
 import com.fxn.pix.Options;
 import com.fxn.pix.Pix;
 import com.fxn.utility.ImageQuality;
+import com.squareup.picasso.Picasso;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import static com.ilhambagoest.imagepicker.Constant.MAX_IMAGE;
@@ -56,11 +57,18 @@ public class MainActivity extends AppCompatActivity {
 
         ImageListener imageListener = (position, imageView) -> {
             imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            Glide.with(this)
+            // Using Glide to processing
+            /*Glide.with(this)
                     .asBitmap()
                     .load(imageResult.get(position))
                     .fitCenter()
+                    .into(imageView);*/
+
+            // Using Picasso to processing
+            Picasso.get()
+                    .load(new File(imageResult.get(position)))
                     .into(imageView);
+
         };
         cvImage.setImageListener(imageListener);
         cvImage.setIndicatorVisibility(View.GONE);
